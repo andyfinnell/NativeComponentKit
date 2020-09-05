@@ -2,8 +2,15 @@ import Foundation
 import XCTest
 import NativeComponentKit
 
+final class BannerView: NativeView {
+    
+}
+
 final class BannerComponent: NativeComponent {
     private let title: String
+    private let bannerView = BannerView()
+    
+    var ui: NativeUI { .view(bannerView) }
     
     init(title: String) {
         self.title = title
