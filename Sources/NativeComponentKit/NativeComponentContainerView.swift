@@ -28,9 +28,28 @@ final class NativeComponentContainerView: NativeView {
     override var intrinsicContentSize: CGSize {
         componentView?.intrinsicContentSize ?? .zero
     }
+    
+    #if canImport(UIKit)
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        copyHuggingToSuperview()
+    }
+    #endif
+    
+    #if canImport(AppKit)
+    override func viewDidMoveToSuperview() {
+        super.viewDidMoveToSuperview()
+        copyHuggingToSuperview()
+    }
+    #endif
 }
 
 private extension NativeComponentContainerView {
+    func copyHuggingToSuperview() {
+        superview?.setContentHuggingPriority(contentHuggingPriority(for: .horizontal), for: .horizontal)
+        superview?.setContentHuggingPriority(contentHuggingPriority(for: .vertical), for: .vertical)
+    }
+    
     func resetHugging() {
         setContentHuggingPriority(.required, for: .horizontal)
         setContentHuggingPriority(.required, for: .vertical)
@@ -38,6 +57,7 @@ private extension NativeComponentContainerView {
     
     func commonInit() {
         resetHugging()
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
     func componentViewWillChange() {
@@ -57,6 +77,7 @@ private extension NativeComponentContainerView {
             setContentHuggingPriority(view.contentHuggingPriority(for: .horizontal), for: .horizontal)
             setContentHuggingPriority(view.contentHuggingPriority(for: .vertical), for: .vertical)
         }
+        copyHuggingToSuperview()
         
         invalidateIntrinsicContentSize()
     }
