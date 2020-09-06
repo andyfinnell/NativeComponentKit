@@ -32,7 +32,7 @@ final class NativeComponentContainerView: NativeView {
 
 private extension NativeComponentContainerView {
     func resetHugging() {
-        setContentHuggingPriority(.required, for: .horizontal)
+        //setContentHuggingPriority(.required, for: .horizontal)
         setContentHuggingPriority(.required, for: .vertical)
     }
     
