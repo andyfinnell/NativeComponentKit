@@ -51,8 +51,8 @@ private extension NativeComponentContainerView {
     }
     
     func resetHugging() {
-        setContentHuggingPriority(.required, for: .horizontal)
-        setContentHuggingPriority(.required, for: .vertical)
+        setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        setContentHuggingPriority(.defaultHigh, for: .vertical)
     }
     
     func commonInit() {
