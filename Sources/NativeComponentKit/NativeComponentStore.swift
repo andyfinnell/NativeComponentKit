@@ -64,6 +64,8 @@ private extension NativeComponentParameters {
         case let .internalJsonValue(jsonValue):
             if case let .object(obj) = jsonValue, case let .string(id) = obj["component_id"] {
                 return NativeComponentID(id)
+            } else if case let .object(obj) = jsonValue, case let .string(id) = obj["componentId"] {
+                return NativeComponentID(id)
             } else {
                 throw NativeComponentError.componentIDNotFound
             }
