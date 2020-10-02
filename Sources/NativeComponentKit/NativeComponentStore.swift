@@ -61,6 +61,12 @@ private extension NativeComponentParameters {
             return id.componentId
         case let .internalValue(value):
             return value.componentId
+        case let .internalJsonValue(jsonValue):
+            if case let .object(obj) = jsonValue, case let .string(id) = obj["component_id"] {
+                return NativeComponentID(id)
+            } else {
+                throw NativeComponentError.componentIDNotFound
+            }
         }
     }
     
@@ -72,6 +78,8 @@ private extension NativeComponentParameters {
             return data
         case let .internalValue(value):
             return try value.asData(with: encoder)
+        case let .internalJsonValue(jsonValue):
+            return try JSONCodable(jsonValue).asData(with: encoder)
         }
     }
 }
