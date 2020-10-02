@@ -11,7 +11,7 @@ public final class NativeComponentContainerViewController: NativeViewController,
     private let realView = NativeComponentContainerView()
     private weak var componentViewController: NativeViewController?
     
-    var nativeComponent: NativeComponent? {
+    public var nativeComponent: NativeComponent? {
         willSet {
             nativeComponentWillChange()
         }
